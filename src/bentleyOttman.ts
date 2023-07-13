@@ -235,15 +235,12 @@ class BentleyOttman {
 
     this.swap(s, t);
 
-    const r = this.tree.findPredecessor(t);
-    const u = this.tree.findSuccessor(s);
-
-    if (r && u) {
-      this.removeEvent(r, s);
-      this.removeEvent(t, u);
-    }
+    const r = this.tree.findSuccessor(t);
+    const u = this.tree.findPredecessor(s);
 
     if (r) {
+      this.removeEvent(r, s);
+
       const intersectRT = r.intersect(t);
       if (intersectRT) {
         this.intersections.push(intersectRT);
@@ -251,6 +248,8 @@ class BentleyOttman {
     }
 
     if (u) {
+      this.removeEvent(t, u);
+
       const intersectSU = s.intersect(u);
       if (intersectSU) {
         this.intersections.push(intersectSU);
@@ -259,8 +258,6 @@ class BentleyOttman {
   }
 
   findIntersections(): Point[] {
-    const intersections: Point[] = [];
-
     while (!this.queue.isEmpty()) {
       const event = this.queue.dequeue()!;
 
@@ -277,8 +274,8 @@ class BentleyOttman {
       }
     }
 
-    return intersections;
+    return this.intersections;
   }
 }
 
-export { Segment, EventType, Event, BentleyOttman };
+export { Event, EventType, Segment, BentleyOttman };
