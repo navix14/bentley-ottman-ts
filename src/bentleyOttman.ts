@@ -1,45 +1,6 @@
 import PriorityQueue from "./priorityQueue";
-import { AVLTree, drawTree } from "./avl";
-
-class Point {
-  public x: number;
-  public y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
-class Vector {
-  public dx: number;
-  public dy: number;
-
-  constructor(dx: number, dy: number) {
-    this.dx = dx;
-    this.dy = dy;
-  }
-
-  add(other: Vector): Vector {
-    return new Vector(this.dx + other.dx, this.dy + other.dy);
-  }
-
-  sub(other: Vector): Vector {
-    return new Vector(this.dx - other.dx, this.dy - other.dy);
-  }
-
-  mult(factor: number): Vector {
-    return new Vector(this.dx * factor, this.dy * factor);
-  }
-
-  dot(other: Vector): number {
-    return this.dx * other.dx + this.dy * other.dy;
-  }
-
-  cross(other: Vector): number {
-    return this.dx * other.dy - this.dy * other.dx;
-  }
-}
+import { AVLTree } from "./avl";
+import { Point, Vector } from "./util";
 
 class Segment {
   public id: string;
@@ -320,11 +281,4 @@ class BentleyOttman {
   }
 }
 
-const s1 = new Segment("s1", new Point(0, 4), new Point(14, 5));
-const s2 = new Segment("s2", new Point(2, 7), new Point(12, 0));
-const s3 = new Segment("s3", new Point(5, 0), new Point(11, 6));
-
-const bentleyOttman = new BentleyOttman([s1, s2, s3]);
-const intersections = bentleyOttman.findIntersections();
-
-console.log(intersections);
+export { Segment, EventType, Event, BentleyOttman };
